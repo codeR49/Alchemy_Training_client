@@ -1,6 +1,7 @@
 import React from 'react'
 // import Inventory from '../Inventory'
 import {Helmet} from 'react-helmet';
+import Requirementgathering from '../RequirementGathering';
 
 const Home = () => {
   return (
@@ -8,8 +9,9 @@ const Home = () => {
        {/* <Inventory/> */}
        <Helmet>
                 <style>{'body { background-color: black; }'}</style>
+                <title>welcome</title>
             </Helmet>
-       welcome
+    <Requirementgathering/>
     </div>
   )
 }
