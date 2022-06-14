@@ -49,7 +49,7 @@ function Signin() {
             <Routes>
               {roles === "Training Executive"
                 ? navigate("/i", { replace: true })
-                : "/"}
+                : navigate("/TrainerSelector", { replace: true })}
             </Routes>
           );
 

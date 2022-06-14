@@ -21,7 +21,7 @@ function Requirementgathering() {
             <Helmet>
                 <style>{'body { background-color: #F4F6FC }'}</style>
             </Helmet>
-<p >Requirement Gathering</p>
+<p className='p-text' >Requirement Gathering</p>
             <div style={{display:"flex"}}>
     <form className="row g-3 abc">
         <div>
@@ -200,10 +200,10 @@ function Requirementgathering() {
     </div>   
 
  <div >
- <button class="button">Submit</button>
+ <button class="buttons">Submit</button>
     
 
- <button class="button">Reset</button>
+ <button class="buttons">Reset</button>
     
  </div>
   </form>
