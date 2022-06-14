@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import VirtualizedSelect from "react-virtualized-select";
 import axios from "axios";
-import DevelopmentUrl from '../../data/api';
+import DevelopmentUrl from "../../data/api";
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
@@ -36,12 +36,13 @@ function Requirementgathering() {
   const [monthlyattendance, setMonthlyattendance] = useState("");
   const [weeklyperformance, setWeeklyperformance] = useState("");
   const [monthlyperformance, setMonthlyperformance] = useState("");
-  const [consolidatedmonthlyreport, setConsolidatedmonthlyreport] = useState("");
-  const [showmessage, setShowmessage] = useState("")
+  const [consolidatedmonthlyreport, setConsolidatedmonthlyreport] =
+    useState("");
+  const [showmessage, setShowmessage] = useState("");
   const type = [
     { label: "React Js", value: "React Js" },
     { label: "Node Js", value: "Node Js" },
-    { label: "Java", value: "Java"},
+    { label: "Java", value: "Java" },
     { label: "AWS", value: "AWS" },
     { label: "Azure", value: "Azure" },
     { label: "Red Hat", value: "Red Hat" },
@@ -49,7 +50,7 @@ function Requirementgathering() {
 
   const submitForm = (e) => {
     e.preventDefault();
-    
+
     const data = {
       clientname: clientname,
       fullname: fullname,
@@ -64,7 +65,7 @@ function Requirementgathering() {
         labsandbox: labsandbox,
         mentor: mentor,
         labsupport: labsupport,
-        offlinesupport: offlinesupport
+        offlinesupport: offlinesupport,
       },
       addonsdescription: addonsdescription,
       assessment: {
@@ -72,7 +73,7 @@ function Requirementgathering() {
         coding: coding,
         project: project,
         casestudy: casestudy,
-        proctor: proctor
+        proctor: proctor,
       },
       reports: {
         dailyattendance: dailyattendance,
@@ -80,26 +81,24 @@ function Requirementgathering() {
         monthlyattendance: monthlyattendance,
         weeklyperformance: weeklyperformance,
         monthlyperformance: monthlyperformance,
-        consolidatedmonthlyreport: consolidatedmonthlyreport
-      }
-
-    }
-    axios.post(`${DevelopmentUrl}/requirement`, data, {
-      headers: {
-        "Content-type": "application/json",
-        "Authorization": `bearer ${token}`
-      }
-    })
-      .then(res => {
+        consolidatedmonthlyreport: consolidatedmonthlyreport,
+      },
+    };
+    axios
+      .post(`${DevelopmentUrl}/requirement`, data, {
+        headers: {
+          "Content-type": "application/json",
+          Authorization: `bearer ${token}`,
+        },
+      })
+      .then((res) => {
         console.log(res);
         setShowmessage("Requirement submitted successfully");
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
-       
       });
-
-  }
+  };
   // const reset = () => {
   //   setClientname('');
   //   setFullname('');
@@ -127,13 +126,12 @@ function Requirementgathering() {
   //   setMonthlyperformance('');
   //   setConsolidatedmonthlyreport('');
   // }
-
   return (
     <div>
       <Helmet>
         <style>{"body { background-color: #F4F6FC }"}</style>
       </Helmet>
-      <p>Requirement Gathering</p>
+      <p className="p-text">Requirement Gathering</p>
       <div style={{ display: "flex" }}>
         <form className="row g-3 abc" onSubmit={submitForm}>
           <div>
@@ -250,7 +248,10 @@ function Requirementgathering() {
 
               <VirtualizedSelect
                 options={type}
-                onChange={(value) => {setTechnology(value.value); console.log(value.value)}}
+                onChange={(value) => {
+                  setTechnology(value.value);
+                  console.log(value.value);
+                }}
                 value={technology}
                 placeholder="Choose one"
                 style={{ boxShadow: "5px 5px 5px #00000029" }}
@@ -492,12 +493,14 @@ function Requirementgathering() {
               </div>
             </div>
           </div>
-<hr/>
-<p> {showmessage}</p>
+          <hr />
+          <p className="p-text"> {showmessage}</p>
           <div>
-            <button class="button" type="submit">Submit</button>
+            <button class="buttons" type="submit">
+              Submit
+            </button>
 
-            <button class="button" > Reset</button>
+            <button class="buttons"> Reset</button>
           </div>
         </form>
       </div>

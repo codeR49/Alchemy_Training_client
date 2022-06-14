@@ -38,8 +38,8 @@ background-color: #2E384D;
 }
 .form-control{
     box-shadow: 5px 5px 5px #00000029;
-    -webkit-appearance: none;
     outline: none;
+    -webkit-appearance: none;
 }
 .form-label {
     margin-bottom: 0.5rem;
@@ -54,43 +54,74 @@ background-color: #2E384D;
     font-family: 'Segoe UI';
     font-size: x-large;
 
+} 
+.buttonedit{
+    background: #A99A77 0% 0% no-repeat padding-box;
+    border-radius: 5px;
+    opacity: 1;
+    width: 100px;
+    height: 30px;
+    text-decoration: none;
+    border: none;
+        font-size: 16px;
+        color: white;
+        margin-left: 100px;
+        margin-top: -25px;
+       
 }
-.buttons {
+.buttonemilsubmit {
     background: #A99A77 0% 0% no-repeat padding-box;
 border-radius: 5px;
 opacity: 1;
-width: 272px;
+width: 200px;
 height: 40px;
 text-decoration: none;
 border: none;
     font-size: 16px;
     color: white;
-    margin-left: 200px;
+    margin-left: 185px;
     margin-top: 40px;
   }
-.heading{
+.trainer-heading {
     font-family: 'Segoe UI', 'Regular';
-    margin-top: 10px;
+    margin-top: -20px;
    
     width: fit-content;
     font-size: medium;
     color: #2E384D ;
     
 }
-.headingright{
-    font-family: sans-serif;
+.iptemailto{
+    margin-top: 20px;
+    bottom: 10px;
+    outline: none;
+    -webkit-appearance: none;
+}
+.iptemailtext{
+    height: 180px;
+    margin-top: 20px;
+    bottom: 10px;
+}
+p span {
 
-    border-bottom: 1px solid beige;
+    
     width: fit-content;
-    font-size: small;
-}
-.billpurchase{
-    margin-top: -40px;
-}
-.btns{
-    width: 100px;
-}
-.btnss{
-    width: 100px;
-    margin-left: 20px; 
-}
+    font-size: medium;
+    color: #8C98A9 ;
+text-align: justify;
+font-family: 'Segoe UI', 'Regular';
+font-weight: 600;
+
+  }
+
+p span span{
+
+    
+    color: #8C98A9;
+    
+  }
+  .iptfile{
+    background-color: white;
+    box-shadow: 5px 5px 5px #00000029;
+  }
+
