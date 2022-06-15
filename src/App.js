@@ -6,6 +6,7 @@ import { AuthProvider } from './Component/Utils/Auth';
 import RequireAuth from "./Component/ProtectedRoute/RequireAuth";
 import Home from './Page/Layouts/Home';
 import Trainer from './Page/Trainer/Trainer';
+import TrainerSelctor from './Page/Layouts/TrainerSelctor';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
   <Routes>
   <Route exact path="/" element={<Signin />}/>
   <Route exact path="/i" element={<RequireAuth><Home/></RequireAuth>}/>
-  <Route exact path="/TrainerSelector" element={<RequireAuth><Trainer/></RequireAuth>}/>
+  <Route exact path="/TrainerSelector" element={<RequireAuth><TrainerSelctor/></RequireAuth>}/>
   </Routes>
   </BrowserRouter>
 </AuthProvider>
