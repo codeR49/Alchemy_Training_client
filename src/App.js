@@ -15,8 +15,9 @@ function App() {
   <BrowserRouter>
   <Routes>
   <Route exact path="/" element={<Signin />}/>
-  <Route exact path="/i" element={<RequireAuth><Home/></RequireAuth>}/>
+  <Route exact path="/requirement" element={<RequireAuth><Home/></RequireAuth>}/>
   <Route exact path="/TrainerSelector" element={<RequireAuth><TrainerSelctor/></RequireAuth>}/>
+  <Route exact path="/updaterequirement" element={<RequireAuth><Home/></RequireAuth>}/>
   </Routes>
   </BrowserRouter>
 </AuthProvider>

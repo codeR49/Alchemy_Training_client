@@ -9,7 +9,7 @@ const Home = () => {
     <div >
 <Navbar/>
        <Helmet>
-                <style>{'body { background-color: black; }'}</style>
+                
                 <title>welcome</title>
             </Helmet>
     <Requirementgathering/>
