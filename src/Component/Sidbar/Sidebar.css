@@ -4,14 +4,15 @@
     color: #2E384D;
   }
   .sidebar {
-    width: 30%;
+    width: 20%;
     height: auto;
     background-color: #F4F6FC;
+    /* background-color:white; */
     color: #2E384D;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 140px 0px 10px 20px;
+    margin: 110px 0px 10px 20px;
   }
 
   .sidebar .profile img{
@@ -21,17 +22,20 @@
       border-radius: 50%;
     /* margin: 0 auto;
     margin-left: -16px; */
+  
     
   }
   .sidebar .profile h3{
     color: #2E384D;
     margin: 10px 0 5px;
     font-size: 14px;
+  
   }
   .sidebar .profile p{
     color: #2E384D;
     font-size: 14px;
     margin-top: 10px;
+   
   }
   
   .sidebar-top,

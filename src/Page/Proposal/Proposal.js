@@ -1,11 +1,12 @@
+
 import React, { useState, useEffect } from "react";
-import "../Trainer/Trainer.css";
+import "./Proposal.css";
 import { Helmet } from "react-helmet";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import DevelopmentUrl from "../../data/api";
 
-function Trainer() {
+function Proposal() {
   
   const token = localStorage.getItem("token");  
   const [onedata, setOnedata] = useState({});
@@ -40,26 +41,16 @@ function Trainer() {
       <Helmet>
         <style>{"body { background-color: #F4F6FC }"}</style>
       </Helmet>
-      <p className="p-text">Trainer Selector</p>
+      <p className="p-text">Proposal Details</p>
       <div style={{ display: "flex" }}>
-        <div className="row g-3 abc">
+        <div className="row g-3 proposal">
           <div style={{ display: "flex" }}>
             <h1 className="trainer-heading">
-              Recommended Trainers Based On the Selections
+           Proposal Summary
             </h1>
-            {/* <Link
-              to="/updaterequirement"
-              state={{
-                from: {
-                  onedata,
-                  url: "requirement/requpdate",
-                },
-              }}
-            >
-              <button class="buttonedit">Edit</button>
-            </Link> */}
+           
           </div>
-          <div className="col-md-4">
+          <div className="col-md-5">
             <p>
               <span>
                 Client <span>:</span> {onedata.clientname + " "}
@@ -86,7 +77,7 @@ function Trainer() {
               </span>
             </p>
           </div>
-          <div className="col-md-8">
+          <div className="col-md-7">
             <p>
               <span>
                 Technology <span>:</span> {onedata.technology}
@@ -135,70 +126,75 @@ function Trainer() {
             </p>
           </div>
           <hr />
-          <div className="col-md-4">
+          <div className="col-md-5">
             <div>
               <label
                 for="Number"
                 className="form-label"
                 style={{ marginBottom: "30px", color: "#2E384D" }}
               >
-                Trainer's Name
+                Trainer's Details
               </label>
-            </div>
-
-            <div>
-              <input type="checkbox" />
-              <label style={{ marginLeft: "20px" }}>Edwin Hoyles</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label style={{ marginLeft: "20px" }}>Britney Jimenez</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label style={{ marginLeft: "20px" }}>Leo Reese</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label style={{ marginLeft: "20px" }}>Baldwin Larson</label>
-            </div>
-            <div>
-              <input type="checkbox" />
-              <label style={{ marginLeft: "20px" }}>Philbert Dittman</label>
-            </div>
+          
+            <p>
+              <span>
+                Name <span>:</span> Evin
+              </span>
+            </p>
+            <p>
+              <span>
+                YOE <span>:</span> 10 yrs
+              </span>
+            </p>
+            <p>
+              <span>
+                Technology <span>:</span> Java React HTML
+              </span>
+            </p>
+            <p>
+              <span>
+              Skils <span>:</span> Java React HTML
+              </span>
+            </p>
+            <p>
+              <span>
+                Language <span>:</span> Java
+              </span>
+            </p>
+            <p>
+              <span>
+                Corporate Client <span>:</span> TCS Infosys
+              </span>
+            </p>
+            <p>
+              <span>
+                Hourly Rate <span>:</span> 5000 INR /Hour
+              </span>
+            </p>
           </div>
-          <div className="col-md-8">
+           
+          </div>
+          <div className="col-md-7">
             <label
               for="Number"
               className="form-label"
               style={{ color: "#2E384D" }}
             >
-              Email
+              Message
             </label>
+<hr/>
+<h6 >
+           Alex <br/>
+           Java Trainer <br/>
+           Hi alex ,
 
-            <input
-              type="email"
-              className="form-control iptemailto"
-              placeholder="To"
-            />
-            <input
-              type="text"
-              className="form-control iptemailto"
-              placeholder="Subject"
-            />
-            <textarea className="form-control iptemailtext" placeholder="" />
-            <input
-              type="file"
-              id="myfile"
-              name="myfile"
-              className=" iptfile iptemailto"
-            
-            />
+            </h6><hr/>
+          
           </div>
 
           <div className="col-md-4">{/* just for seperation */}</div>
           <div className="col-md-8">
-            <button className="buttonemilsubmit">Submit</button>
+           <Link to="/inquiry"> <button className="buttonemilsubmit">Exit</button></Link>
 
             {/* <button className="buttonemilsubmit">Skip</button> */}
           </div>
@@ -208,4 +204,4 @@ function Trainer() {
   );
 }
 
-export default Trainer;
+export default Proposal;

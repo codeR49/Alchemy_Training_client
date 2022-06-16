@@ -4,17 +4,19 @@ import VirtualizedSelect from "react-virtualized-select";
 import axios from "axios";
 import DevelopmentUrl from "../../data/api";
 import { useLocation } from "react-router-dom";
+import "./index.css"
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
-import "./index.css";
+
+import {Link} from "react-router-dom"
 
 function Requirementgathering() {
   // const [itemtype, setItemtype] = useState(null)
   const token = localStorage.getItem("token");
-  const location = useLocation();
-  const { from } = location.state;
-  console.log(from);
+//   const location = useLocation();
+//   const { from } = location.state;
+//   console.log(from);
 
   const [clientname, setClientname] = useState("");
   const [fullname, setFullname] = useState("");
@@ -137,7 +139,7 @@ function Requirementgathering() {
       </Helmet>
       <p className="p-text">Requirement Gathering</p>
       <div style={{ display: "flex" }}>
-        <form className="row g-3 abc" onSubmit={submitForm}>
+        <form className="row g-3 reqgathering" onSubmit={submitForm}>
           <div>
             <h5 className="heading">Customer Details </h5>
           </div>
@@ -280,7 +282,7 @@ function Requirementgathering() {
                 />
                 <label style={{ marginLeft: "20px" }}>Platform(LMS)</label>
               </div>
-              <div style={{ marginLeft: "100px" }}>
+              <div style={{ marginLeft: "20px" }}>
                 <input
                   type="checkbox"
                   onChange={(e) => {
@@ -312,7 +314,7 @@ function Requirementgathering() {
                 />
                 <label style={{ marginLeft: "20px" }}>Lab Support</label>
               </div>
-              <div style={{ marginLeft: "115px" }}>
+              <div style={{ marginLeft: "35px" }}>
                 <input
                   type="checkbox"
                   onChange={(e) => {
@@ -500,9 +502,9 @@ function Requirementgathering() {
           <hr />
           <p className="p-text"> {showmessage}</p>
           <div>
-            <button class="buttons" type="submit">
-              Submit
-            </button>
+            <Link to ="/TrainerSelector"><button class="buttons" >
+              Next
+            </button></Link>
 
             <button class="buttons"> Reset</button>
           </div>

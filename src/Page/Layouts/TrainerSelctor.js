@@ -11,7 +11,7 @@ const TrainerSelctor = () => {
   return (
     <div className='containers'>
 {/* <Navbar/> */}
-<Sidebar/>
+{/* <Sidebar/> */}
        <Helmet>
                 <style>{'body { background-color: #F4F6FC }'}</style>
                 <title>Trainer Selector</title>

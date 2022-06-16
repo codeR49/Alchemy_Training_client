@@ -7,6 +7,8 @@ import RequireAuth from "./Component/ProtectedRoute/RequireAuth";
 import Home from './Page/Layouts/Home';
 import Trainer from './Page/Trainer/Trainer';
 import TrainerSelctor from './Page/Layouts/TrainerSelctor';
+import Enquirylayout from './Page/Layouts/Enquirylayout';
+import Proposallayout from './Page/Layouts/Proposallayout';
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
   <Route exact path="/requirement" element={<RequireAuth><Home/></RequireAuth>}/>
   <Route exact path="/TrainerSelector" element={<RequireAuth><TrainerSelctor/></RequireAuth>}/>
   <Route exact path="/updaterequirement" element={<RequireAuth><Home/></RequireAuth>}/>
+  <Route exact path="/inquiry" element={<RequireAuth><Enquirylayout/></RequireAuth>}/>
+  <Route exact path="/proposal" element={<RequireAuth><Proposallayout/></RequireAuth>}/>
   </Routes>
   </BrowserRouter>
 </AuthProvider>

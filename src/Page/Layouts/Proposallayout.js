@@ -1,11 +1,12 @@
 import React from 'react'
-// import Inventory from '../Inventory'
-import {Helmet} from 'react-helmet';
-import Navbar from '../../Component/Navbar/Navbar';
-import Sidebar from '../../Component/Sidbar/Sidebar';
-import Requirementgathering from '../RequirementGathering';
 
-const Home = () => {
+import {Helmet} from 'react-helmet';
+
+import Sidebar from '../../Component/Sidbar/Sidebar';
+import Proposal from '../Proposal/Proposal';
+
+
+const Proposallayout = () => {
   return (
     <div className='containers' >
 
@@ -14,9 +15,9 @@ const Home = () => {
                 
                 <title>welcome</title>
             </Helmet>
-    <Requirementgathering/>
+    <Proposal/>
     </div>
   )
 }
 
-export default  Home
+export default  Proposallayout

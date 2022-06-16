@@ -48,8 +48,9 @@ function Signin() {
           message = (
             <Routes>
               {roles === "Training Executive"
-                ? navigate("/requirement", { replace: true })
-                : navigate("/TrainerSelector", { replace: true })}
+                ? navigate("/inquiry", { replace: true })
+                : ""}
+   
             </Routes>
           );
 
