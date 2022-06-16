@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet";
 import VirtualizedSelect from "react-virtualized-select";
 import axios from "axios";
 import DevelopmentUrl from "../../data/api";
+import { useLocation } from "react-router-dom";
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
@@ -11,6 +12,9 @@ import "./index.css";
 function Requirementgathering() {
   // const [itemtype, setItemtype] = useState(null)
   const token = localStorage.getItem("token");
+  const location = useLocation();
+  const { from } = location.state;
+  console.log(from);
 
   const [clientname, setClientname] = useState("");
   const [fullname, setFullname] = useState("");
