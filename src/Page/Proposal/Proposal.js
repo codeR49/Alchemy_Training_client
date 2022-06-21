@@ -1,41 +1,25 @@
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./Proposal.css";
 import { Helmet } from "react-helmet";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import DevelopmentUrl from "../../data/api";
+import { Link, useLocation } from "react-router-dom";
 
 function Proposal() {
-  
-  const token = localStorage.getItem("token");  
-  const [onedata, setOnedata] = useState({});
-  const [addons, setAddons] = useState({});
-  const [assessment, setAssessment] = useState({});
-  const [reports, setReports] = useState({});
+  const location = useLocation();
+  const { state } = location;
 
-  useEffect(() => {
-    axios.get(DevelopmentUrl + '/requirement/reqone', {
-      headers: {
+  let sentProposalTrainer = state.filterTrainer;
+  let name = localStorage.getItem('name');
 
-        "Authorization": `bearer ${token}`
-      }
+
+  let filterTrainerWithName = sentProposalTrainer.filter(function (el) {
+    
+    return state.trainername.map((i)=> {
+      return(
+        el.name.indexOf(i) !== -1
+      )
     })
-      .then(res => {
-        setOnedata(res.data);
-        setAddons(res.data.addons);
-        setAssessment(res.data.assessment);
-        setReports(res.data.reports);
-      
-      })
-      .catch(err => console.error("YO YOU GOT AN ERROR IN AXIOS ", err))
-
-  }, [])
-
-  // console.log(addons);
-  // console.log(assessment);
-  // console.log(reports);
-
+  });
+  
   return (
     <div>
       <Helmet>
@@ -53,55 +37,55 @@ function Proposal() {
           <div className="col-md-5">
             <p>
               <span>
-                Client <span>:</span> {onedata.clientname + " "}
+                Client <span>:</span> {state.clientname + " "}
               </span>
             </p>
             <p>
               <span>
-                Full Name <span>:</span> {onedata.fullname}
+                Full Name <span>:</span> {state.fullname}
               </span>
             </p>
             <p>
               <span>
-                Email ID <span>:</span> {onedata.email}
+                Email ID <span>:</span> {state.email}
               </span>
             </p>
             <p>
               <span>
-                Phone number <span>:</span>{"+91"+ onedata.phone} 
+                Phone number <span>:</span>{"+91"+ state.phone} 
               </span>
             </p>
             <p>
               <span>
-                Training start date <span>:</span> {onedata.startdate}
+                Training start date <span>:</span> {state.startdate}
               </span>
             </p>
           </div>
           <div className="col-md-7">
             <p>
               <span>
-                Technology <span>:</span> {onedata.technology}
+                Technology <span>:</span> {state.technology}
               </span>
             </p>
             <p>
               <span>
                 Add Ons <span>: </span> 
-                     {addons.platform === "on" ? "Platform " : ''}
-                     {addons.labsandbox === "on" ? "Lab Sandbox " : ''} 
-                     {addons.mentor === "on" ? "Mentor " : ''}
-                     {addons.labsupport === "on" ? "Lab Support " : ''}
-                     {addons.offlinesupport === "on" ? "Offline Support " : ''}
+                     {state.platform === true ? "Platform " : ''}
+                     {state.labsandbox === true ? "Lab Sandbox " : ''} 
+                     {state.mentor === true ? "Mentor " : ''}
+                     {state.labsupport === true ? "Lab Support " : ''}
+                     {state.offlinesupport === true ? "Offline Support " : ''}
                 
               </span>
             </p>
             <p>
               <span>
                  Assessment <span>: </span> 
-                     {assessment.mcq === "on" ? "MCQ " : ''} 
-                    {assessment.coding === "on" ? "Coding " : ''}
-                    {assessment.project === "on" ? "Project " : ''} 
-                    {assessment.casestudy === "on" ? "Case Study " : ''} 
-                    {assessment.proctor === "on" ? "Proctoring " : ''}  
+                     {state.mcq === true ? "MCQ " : ''} 
+                    {state.coding === true ? "Coding " : ''}
+                    {state.project === true ? "Project " : ''} 
+                    {state.casestudy === true ? "Case Study " : ''} 
+                    {state.proctor === true ? "Proctoring " : ''}  
                  
                 
               </span>
@@ -109,19 +93,19 @@ function Proposal() {
             <p>
               <span>
                 Reports <span>: </span> 
-                    {reports.dailyattendance === "on" ? "Daily attendance " : ''}
-                     {reports.weeklyattendance === "on" ? "Weekly attendance " : ''}
-                     {reports.monthlyattendance === "on" ? "Monthly attendance " : ''}
-                     {reports.weeklyperformance === "on" ? "Weekly performance " : ''}
-                     {reports.monthlyperformance === "on" ? "Monthly performance " : ''}
-                     {reports.consolidatedmonthlyreport === "on" ? "Consolidated Monthly Report " : ''}
+                    {state.dailyattendance === true ? "Daily attendance " : ''}
+                     {state.weeklyattendance === true ? "Weekly attendance " : ''}
+                     {state.monthlyattendance === true ? "Monthly attendance " : ''}
+                     {state.weeklyperformance === true ? "Weekly performance " : ''}
+                     {state.monthlyperformance === true? "Monthly performance " : ''}
+                     {state.consolidatedmonthlyreport === true ? "Consolidated Monthly Report " : ''}
                 
                 
               </span>
             </p>
             <p>
               <span>
-                Number of Pax <span>:</span> {onedata.copax}
+                Number of Pax <span>:</span> {state.copax}
               </span>
             </p>
           </div>
@@ -135,42 +119,67 @@ function Proposal() {
               >
                 Trainer's Details
               </label>
-          
+            {filterTrainerWithName.map((proposolTrainer)=> {
+              return(
+                <>
+                <p>
+              <span>
+                Name <span>:</span> {proposolTrainer.name}
+                </span>
+            </p>
+            
             <p>
               <span>
-                Name <span>:</span> Evin
+                YOE <span>:</span> {proposolTrainer.yop}
               </span>
             </p>
             <p>
               <span>
-                YOE <span>:</span> 10 yrs
+                Technology <span>:</span> {proposolTrainer.language.map((technology)=> {
+                  return(
+                    <>
+                    {`${technology}, ` }
+                    </>
+                  )
+                })}
               </span>
             </p>
             <p>
               <span>
-                Technology <span>:</span> Java React HTML
+              Skills <span>:</span> {proposolTrainer.language.map((skill)=> {
+                  return(
+                    <>
+                    {`${skill}, ` }
+                    </>
+                  )
+                })}
               </span>
             </p>
             <p>
               <span>
-              Skils <span>:</span> Java React HTML
+                Language <span>:</span> {proposolTrainer.language.map((language)=> {
+                  return(
+                    <>
+                    {`${language}, ` }
+                    </>
+                  )
+                })}
               </span>
             </p>
             <p>
               <span>
-                Language <span>:</span> Java
+                Corporate Client <span>:</span> {proposolTrainer.corporateclient}
               </span>
             </p>
             <p>
               <span>
-                Corporate Client <span>:</span> TCS Infosys
+                Hourly Rate <span>:</span> {proposolTrainer.hourlyrates}
               </span>
             </p>
-            <p>
-              <span>
-                Hourly Rate <span>:</span> 5000 INR /Hour
-              </span>
-            </p>
+                </>
+              )
+            })}
+            
           </div>
            
           </div>
@@ -184,9 +193,9 @@ function Proposal() {
             </label>
 <hr/>
 <h6 >
-           Alex <br/>
-           Java Trainer <br/>
-           Hi alex ,
+           {name} <br/>
+           {state.subject} <br/>
+           {state.mailbody}
 
             </h6><hr/>
           
@@ -195,8 +204,6 @@ function Proposal() {
           <div className="col-md-4">{/* just for seperation */}</div>
           <div className="col-md-8">
            <Link to="/inquiry"> <button className="buttonemilsubmit">Exit</button></Link>
-
-            {/* <button className="buttonemilsubmit">Skip</button> */}
           </div>
         </div>
       </div>

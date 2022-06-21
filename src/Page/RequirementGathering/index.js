@@ -1,50 +1,82 @@
 import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import VirtualizedSelect from "react-virtualized-select";
-import axios from "axios";
-import DevelopmentUrl from "../../data/api";
-import { useLocation } from "react-router-dom";
-import "./index.css"
+import "./index.css";
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
 
-import {Link} from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function Requirementgathering() {
-  // const [itemtype, setItemtype] = useState(null)
-  const token = localStorage.getItem("token");
-//   const location = useLocation();
-//   const { from } = location.state;
-//   console.log(from);
+ 
+  const dateNow = new Date();
+  let hours = dateNow.getHours();
+  let minutes = dateNow.getMinutes();
+  hours = hours < 10 ? "0" : hours;
 
-  const [clientname, setClientname] = useState("");
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [startdate, setStartdate] = useState("");
-  const [copax, setCopax] = useState("");
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  const inquiry = "22" + hours + minutes;
+
   const [technology, setTechnology] = useState("");
-  const [techdescription, setTechdescription] = useState("");
-  const [platform, setPlatform] = useState("");
-  const [labsandbox, setLabsandbox] = useState("");
-  const [mentor, setMentor] = useState("");
-  const [labsupport, setLabsupport] = useState("");
-  const [offlinesupport, setOfflinesupport] = useState("");
-  const [addonsdescription, setAddonsdescription] = useState("");
-  const [mcq, setMcq] = useState("");
-  const [coding, setCoding] = useState("");
-  const [project, setProject] = useState("");
-  const [casestudy, setCasestudy] = useState("");
-  const [proctor, setProctor] = useState("");
-  const [dailyattendance, setDailyattendance] = useState("");
-  const [weeklyattendance, setWeeklyattendance] = useState("");
-  const [monthlyattendance, setMonthlyattendance] = useState("");
-  const [weeklyperformance, setWeeklyperformance] = useState("");
-  const [monthlyperformance, setMonthlyperformance] = useState("");
-  const [consolidatedmonthlyreport, setConsolidatedmonthlyreport] =
-    useState("");
-  const [showmessage, setShowmessage] = useState("");
+  const [requirement, setRequirement] = useState({
+    clientname: "",
+    fullname: "",
+    email: "",
+    phone: "",
+    startdate: "",
+    copax: "",
+    techdescription: "",
+    addons: {
+      platform: null,
+      labsandbox: null,
+      mentor: null,
+      labsupport: null,
+      offlinesupport: null,
+    },
+    addonsdescription: "",
+    assessment: {
+      mcq: null,
+      coding: null,
+      project: null,
+      casestudy: null,
+      proctor: null,
+    },
+    reports: {
+      dailyattendance: null,
+      weeklyattendance: null,
+      monthlyattendance: null,
+      weeklyperformance: null,
+      monthlyperformance: null,
+      consolidatedmonthlyreport: null,
+    },
+  });
+
+  const handleChange = (e) => {
+    const { name, value, checked } = e.target;
+  
+    if (
+      name !== "clientname" &&
+      name !== "fullname" &&
+      name !== "email" &&
+      name !== "phone" &&
+      name !== "startdate" &&
+      name !== "copax" &&
+      name !== "techdescription" &&
+      name !== "addonsdescription"
+    ) {
+      setRequirement((prevState) => ({
+        ...prevState,
+        [name]: checked,
+      }));
+    } else {
+      setRequirement((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  };
+  
   const type = [
     { label: "React Js", value: "React Js" },
     { label: "Node Js", value: "Node Js" },
@@ -53,85 +85,56 @@ function Requirementgathering() {
     { label: "Azure", value: "Azure" },
     { label: "Red Hat", value: "Red Hat" },
   ];
-
-  const submitForm = (e) => {
-    e.preventDefault();
-
-    const data = {
-      clientname: clientname,
-      fullname: fullname,
-      email: email,
-      phone: phone,
-      startdate: startdate,
-      copax: copax,
-      technology: technology,
-      techdescription: techdescription,
+  requirement.technology = technology;
+  requirement.inquiry = inquiry;
+  
+  const reset = () => {
+    setRequirement({
+      clientname: "",
+      fullname: "",
+      email: "",
+      phone: "",
+      startdate: "",
+      copax: "",
+      techdescription: "",
       addons: {
-        platform: platform,
-        labsandbox: labsandbox,
-        mentor: mentor,
-        labsupport: labsupport,
-        offlinesupport: offlinesupport,
+        platform: false,
+        labsandbox: false,
+        mentor: false,
+        labsupport: false,
+        offlinesupport: false,
       },
-      addonsdescription: addonsdescription,
+      addonsdescription: "",
       assessment: {
-        mcq: mcq,
-        coding: coding,
-        project: project,
-        casestudy: casestudy,
-        proctor: proctor,
+        mcq: false,
+        coding: false,
+        project: false,
+        casestudy: false,
+        proctor: false,
       },
       reports: {
-        dailyattendance: dailyattendance,
-        weeklyattendance: weeklyattendance,
-        monthlyattendance: monthlyattendance,
-        weeklyperformance: weeklyperformance,
-        monthlyperformance: monthlyperformance,
-        consolidatedmonthlyreport: consolidatedmonthlyreport,
+        dailyattendance: false,
+        weeklyattendance: false,
+        monthlyattendance: false,
+        weeklyperformance: false,
+        monthlyperformance: false,
+        consolidatedmonthlyreport: false,
       },
-    };
-    axios
-      .post(`${DevelopmentUrl}/requirement`, data, {
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        console.log(res);
-        setShowmessage("Requirement submitted successfully");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    });
+    setTechnology("");
+   
   };
-  // const reset = () => {
-  //   setClientname('');
-  //   setFullname('');
-  //   setEmail('');
-  //   setPhone('');
-  //   setStartdate('');
-  //   setCopax('');
-  //   setTechnology('');
-  //   setPlatform('');
-  //   setLabsandbox('');
-  //   setLabsupport('');
-  //   setOfflinesupport('');
-  //   setMentor('');
-  //   setTechdescription('');
-  //   setAddonsdescription('');
-  //   setMcq('');
-  //   setCoding('');
-  //   setProject('');
-  //   setCasestudy('');
-  //   setProctor('');
-  //   setDailyattendance('');
-  //   setWeeklyattendance('');
-  //   setWeeklyperformance('');
-  //   setMonthlyattendance('');
-  //   setMonthlyperformance('');
-  //   setConsolidatedmonthlyreport('');
-  // }
+
+  let navigate = useNavigate();
+  const routeChange = () => {
+    const confirm = window.confirm("Are you sure you to proceed to next page?");
+      if (confirm === true) {
+        navigate(`/TrainerSelector`, { state: requirement });
+      } else{
+        navigate(`/requirement`);
+      }
+    }
+    
   return (
     <div>
       <Helmet>
@@ -139,7 +142,7 @@ function Requirementgathering() {
       </Helmet>
       <p className="p-text">Requirement Gathering</p>
       <div style={{ display: "flex" }}>
-        <form className="row g-3 reqgathering" onSubmit={submitForm}>
+        <form className="row g-3 reqgathering">
           <div>
             <h5 className="heading">Customer Details </h5>
           </div>
@@ -150,12 +153,11 @@ function Requirementgathering() {
 
             <input
               type="text"
+              name="clientname"
+              value={requirement.clientname}
               className="form-control"
               placeholder="Acme"
-              onChange={(e) => {
-                setClientname(e.target.value);
-                console.log(e.target.value);
-              }}
+              onChange={handleChange}
               required
             />
           </div>
@@ -166,12 +168,11 @@ function Requirementgathering() {
             </label>
             <input
               type="text"
+              name="fullname"
+              // value={requirement.fullname}
               className="form-control"
               placeholder="Abraham Zack"
-              onChange={(e) => {
-                setFullname(e.target.value);
-                console.log(e.target.value);
-              }}
+              onChange={handleChange}
               required
             />
           </div>
@@ -181,12 +182,11 @@ function Requirementgathering() {
             </label>
             <input
               type="email"
+              name="email"
+              value={requirement.email}
               className="form-control"
               placeholder="example@gmail.com"
-              onChange={(e) => {
-                setEmail(e.target.value);
-                console.log(e.target.value);
-              }}
+              onChange={handleChange}
               required
             />
           </div>
@@ -200,12 +200,11 @@ function Requirementgathering() {
               </div>
               <input
                 type="text"
+                name="phone"
+                value={requirement.phone}
                 className="form-control"
                 placeholder="2073247788"
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                  console.log(e.target.value);
-                }}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -216,11 +215,10 @@ function Requirementgathering() {
             </label>
             <input
               type="Date"
+              name="startdate"
+              value={requirement.startdate}
               className="form-control"
-              onChange={(e) => {
-                setStartdate(e.target.value);
-                console.log(e.target.value);
-              }}
+              onChange={handleChange}
               required
             />
           </div>
@@ -230,12 +228,11 @@ function Requirementgathering() {
             </label>
             <input
               type="text"
+              name="copax"
+              value={requirement.copax}
               className="form-control"
               placeholder="00"
-              onChange={(e) => {
-                setCopax(e.target.value);
-                console.log(e.target.value);
-              }}
+              onChange={handleChange}
               required
             />
           </div>
@@ -254,11 +251,11 @@ function Requirementgathering() {
 
               <VirtualizedSelect
                 options={type}
+                value={technology}
                 onChange={(value) => {
                   setTechnology(value.value);
                   console.log(value.value);
                 }}
-                value={technology}
                 placeholder="Choose one"
                 style={{ boxShadow: "5px 5px 5px #00000029" }}
                 required
@@ -275,30 +272,27 @@ function Requirementgathering() {
               <div>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setPlatform(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="platform"
+                  // checked={requirement.addons.platform}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Platform(LMS)</label>
               </div>
               <div style={{ marginLeft: "20px" }}>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setLabsandbox(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="labsandbox"
+                  // checked={requirement.addons.labsandbox}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Lab Sandbox</label>
               </div>
               <div style={{ marginLeft: "100px" }}>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setMentor(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="mentor"
+                  // checked={requirement.addons.mentor}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Mentor</label>
               </div>
@@ -307,20 +301,18 @@ function Requirementgathering() {
               <div>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setLabsupport(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="labsupport"
+                  // checked={requirement.addons.labsupport}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Lab Support</label>
               </div>
               <div style={{ marginLeft: "35px" }}>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setOfflinesupport(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="offlinesupport"
+                  // checked={requirement.addons.offlinesupport}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Offline Support</label>
               </div>
@@ -332,11 +324,10 @@ function Requirementgathering() {
             </label>
             <textarea
               type="text"
+              name="techdescription"
+              value={requirement.techdescription}
               className="form-control"
-              onChange={(e) => {
-                setTechdescription(e.target.value);
-                console.log(e.target.value);
-              }}
+              onChange={handleChange}
               required
             />
           </div>
@@ -347,11 +338,10 @@ function Requirementgathering() {
             </label>
             <textarea
               type="text"
+              name="addonsdescription"
+              value={requirement.addonsdescription}
               className="form-control"
-              onChange={(e) => {
-                setAddonsdescription(e.target.value);
-                console.log(e.target.value);
-              }}
+              onChange={handleChange}
               required
             />
           </div>
@@ -364,30 +354,27 @@ function Requirementgathering() {
               <div>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setMcq(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="mcq"
+                  // checked={requirement.assessment.mcq}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>MCQ</label>
               </div>
               <div style={{ marginLeft: "85px" }}>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setCoding(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="coding"
+                  // checked={requirement.assessment.coding}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Coding</label>
               </div>
               <div style={{ marginLeft: "100px" }}>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setProject(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="project"
+                  // checked={requirement.assessment.project}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Project</label>
               </div>
@@ -396,20 +383,18 @@ function Requirementgathering() {
               <div>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setCasestudy(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="casestudy"
+                  // checked={requirement.assessment.casestudy}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Case Study</label>
               </div>
               <div style={{ marginLeft: "45px" }}>
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setProctor(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="proctor"
+                  // checked={requirement.assessment.proctor}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "20px" }}>Proctoring</label>
               </div>
@@ -424,10 +409,9 @@ function Requirementgathering() {
               <div className="col-md-6">
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setDailyattendance(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="dailyattendance"
+                  // checked={requirement.reports.dailyattendance}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "10px" }}>
                   Daily Attendence Report
@@ -436,10 +420,9 @@ function Requirementgathering() {
               <div className="col-md-6">
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setWeeklyattendance(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="weeklyattendance"
+                  // checked={requirement.reports.weeklyattendance}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "10px" }}>
                   Weekly Attendence Report
@@ -450,10 +433,9 @@ function Requirementgathering() {
               <div className="col-md-6">
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setWeeklyperformance(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="weeklyperformance"
+                  // checked={requirement.reports.weeklyperformance}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "10px" }}>
                   Weekly Performance Report
@@ -462,10 +444,9 @@ function Requirementgathering() {
               <div className="col-md-6">
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setMonthlyattendance(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="monthlyattendance"
+                  // checked={requirement.reports.monthlyattendance}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "10px" }}>
                   Monthly Attendence Report
@@ -476,10 +457,9 @@ function Requirementgathering() {
               <div className="col-md-6">
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setMonthlyperformance(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="monthlyperformance"
+                  // checked={requirement.reports.monthlyperformance}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "10px" }}>
                   Monthly Performance Report
@@ -488,10 +468,9 @@ function Requirementgathering() {
               <div className="col-md-6">
                 <input
                   type="checkbox"
-                  onChange={(e) => {
-                    setConsolidatedmonthlyreport(e.target.value);
-                    console.log(e.target.value);
-                  }}
+                  name="consolidatedmonthlyreport"
+                  // checked={requirement.reports.consolidatedmonthlyreport}
+                  onChange={handleChange}
                 />
                 <label style={{ marginLeft: "10px" }}>
                   Consolidated Monthly Report
@@ -500,13 +479,23 @@ function Requirementgathering() {
             </div>
           </div>
           <hr />
-          <p className="p-text"> {showmessage}</p>
+          {/* <p className="p-text"> {showmessage}</p> */}
           <div>
-            <Link to ="/TrainerSelector"><button class="buttons" >
+            <button type="submit" onClick={routeChange} class="buttons">
               Next
-            </button></Link>
+            </button>
 
-            <button class="buttons"> Reset</button>
+            <button
+              class="buttons"
+              type="reset"
+              onClick={() => {
+                if (window.confirm("Are you sure to reset this form?")) {
+                  reset();
+                }
+              }}
+            >
+              Reset
+            </button>
           </div>
         </form>
       </div>
