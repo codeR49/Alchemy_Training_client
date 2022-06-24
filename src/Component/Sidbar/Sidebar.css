@@ -14,6 +14,9 @@
     align-items: center;
     margin: 110px 0px 10px 20px;
   }
+  .profile{
+    margin-left: -80px;
+  }
 
   .sidebar .profile img{
     display: block;

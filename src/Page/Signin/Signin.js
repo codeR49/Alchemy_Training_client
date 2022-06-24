@@ -5,8 +5,10 @@ import "./Signin.css";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import { useAuth } from "../../Component/Utils/Auth";
+import Passwordtoggle from "../../Component/Passwordtoggle/Passwordtoggle";
 
 function Signin() {
+  const [passwordInputType , ToggleIcon] = Passwordtoggle();
   // const [isPasswordShow, setIsPasswordShow] = useState(false);
   const auth = useAuth();
   let [username, setUsername] = useState("");
@@ -60,7 +62,7 @@ function Signin() {
       .catch((error) => {
         console.log("error occured");
         console.log(error.data);
-        setErrorMessage("Enter valid Username and Password");
+        setErrorMessage("Username and Password doesn't match");
       });
   };
 
@@ -68,6 +70,7 @@ function Signin() {
     <>
       <Helmet>
         <style>{"body { background-color: #F5F8FB }"}</style>
+        <title> SignIn</title>
       </Helmet>
       <div class="container">
         <div class="wrapper">
@@ -90,19 +93,20 @@ function Signin() {
               <i class="fas fa-lock"></i>
 
               <input
-                type="password"
+                type={passwordInputType}
                 placeholder="Password"
                 id="password"
                 onChange={onchangepasswordhandler}
                 required
               />
+              <span className="icon">{ToggleIcon}</span>
             </div>
 
             <div class="row button">
-              <button type="submit">Login</button>
+              <button type="submit" className="lgnbtn">Sign in</button>
             </div>
           </form>
-          <p>{error}</p>
+          <h6 style={{textAlign:"center",color:"#A99A77"}}>{error}</h6>
         </div>
       </div>
     </>

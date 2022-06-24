@@ -5,7 +5,7 @@ import "./index.css";
 import "react-select/dist/react-select.css";
 import "react-virtualized/styles.css";
 import "react-virtualized-select/styles.css";
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useNavigate } from "react-router-dom";
 
 function Requirementgathering() {
@@ -143,9 +143,12 @@ function Requirementgathering() {
       <p className="p-text">Requirement Gathering</p>
       <div style={{ display: "flex" }}>
         <form className="row g-3 reqgathering">
-          <div>
+          <div >
             <h5 className="heading">Customer Details </h5>
+  
           </div>
+         
+       
           <div className="col-md-3">
             <label for="Number" className="form-label">
               Client Name

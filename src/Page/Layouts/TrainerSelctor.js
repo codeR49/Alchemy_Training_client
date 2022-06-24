@@ -9,8 +9,10 @@ import './layout.css'
 
 const TrainerSelctor = () => {
   return (
+  <>
+     <Navbar/> 
     <div className='containers'>
-{/* <Navbar/> */}
+
 {/* <Sidebar/> */}
        <Helmet>
                 <style>{'body { background-color: #F4F6FC }'}</style>
@@ -18,6 +20,7 @@ const TrainerSelctor = () => {
             </Helmet>
     <Trainer/>
     </div>
+  </>
   )
 }
 

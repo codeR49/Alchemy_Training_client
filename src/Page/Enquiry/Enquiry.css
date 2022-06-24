@@ -1,9 +1,9 @@
 .inquiry{
-    padding: 20px 100px 40px 100px;
+    padding: 20px 30px 40px 30px;
     /* width: 1639px; */
     height: 100%;
     border: 1px solid #EEEEF0;
-    margin:50px 50px 10px 50px ;
+    margin:50px 50px 10px 10px ;
     border-radius: 5px;
     box-shadow: 12px 15px 10px -18px #EEEEF0; 
     background: #EEEEF0 0% 0% no-repeat padding-box;
@@ -15,9 +15,7 @@ height: 846px; */
    
 }
 
-Link{
-    text-decoration: none;
-}
+
 
 .table{
     margin-bottom: 100px;
@@ -67,5 +65,30 @@ border: none;
         margin-left: 100px;
      
         
-       
+     
+        
+}
+/* .action ,Link{
+    text-decoration: none;
+} */
+
+/* .action{
+    display: none;
+} */
+
+/* tr:hover .action{
+    display: inline;
+} */
+Link{
+    text-decoration: none ;
+}
+a{
+    text-decoration: none;
+    margin-left: 5px;
+}
+tr:hover {
+   
+    box-shadow: 0px 5px 5px -5px rgba(0, 0, 0, 0.5) ;
+    cursor: pointer;
+    
 }

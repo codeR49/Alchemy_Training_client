@@ -64,7 +64,7 @@ function Enquiry() {
                   <td>{inquiry.requirement.phone}</td>
                   <td>{inquiry.requirement.technology}</td>
                   <td>{inquiry.requirement.startdate}</td>
-                  <td>{inquiry.requirement.copax}</td>
+                  <td style={{textAlign:"center"}}>{inquiry.requirement.copax}</td>
                   {inquiry.trainerdetails.map((name)=> {
                     return(
                       <>
@@ -77,10 +77,10 @@ function Enquiry() {
                     )
                   })}
 
-                  <td>
-                    <Link to="#">View</Link>
-                    <Link to="#">Edit</Link>
-                    <Link to="#">Delete</Link>
+                  <td >
+                    <Link to="/">View</Link>
+                    <Link to="/">Edit</Link>
+                    <Link to="/">Delete</Link>
                   </td>
                 </tr>
               );

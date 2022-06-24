@@ -7,16 +7,20 @@ import Requirementgathering from '../RequirementGathering';
 
 const Home = () => {
   return (
+    <>
+    <Navbar/>
     <div className='containers' >
 
 {/* <Sidebar/> */}
        <Helmet>
                 
-                <title>welcome</title>
+                <title>New Requirement</title>
             </Helmet>
     <Requirementgathering/>
     </div>
+    </>
   )
+
 }
 
 export default  Home
